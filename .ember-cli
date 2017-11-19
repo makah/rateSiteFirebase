@@ -1,0 +1,6 @@
+{
+  "port": 8080,
+  "liveReload": true,
+  "live-reload-port": 8081
+}
+
