@@ -10,6 +10,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //Services
 import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationGuard } from './services/authentication.guard';
 
 //Components
 import { AppComponent } from './app.component';
@@ -33,7 +34,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

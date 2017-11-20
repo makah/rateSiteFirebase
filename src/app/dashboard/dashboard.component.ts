@@ -12,16 +12,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private authService :AuthenticationService, private router: Router) { }
 
-  ngOnInit() {
-    var user = this.authService.currentUser;
-    if (!user) {
-      let errValue = 101;
-      this.router.navigate(['/login', errValue]);
-    }
-    else{ 
-      console.log(user);
-    }
-  }
+  ngOnInit() { }
   
   logout() {
     this.authService.logout();
