@@ -1,0 +1,10 @@
+
+<h2>Register Now</h2>
+<span class="error" style="background: aquamarine;" *ngIf="errMsg">{{ errMsg }}</span>
+
+<form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+    <input type="text" name="email" placeholder="zion@zerg.sc" (ngModel)="email" required>
+    <input type="password" name="password" placeholder="Password" (ngModel)="password" required>
+    
+    <button type="submit" [disabled]="!formData.valid" class="basic-btn">Create my account</button>
+</form>
