@@ -17,10 +17,22 @@ export class AuthenticationService {
         
     }
     
-    createUserWithEmailAndPassword(email, password) {
-        let promise = this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-        return Observable.fromPromise(promise);
+    createUserWithEmailAndPassword(name, email, password) {
+        let newUser = {
+            name: name
+        };
+        
+        let newAuthTask = this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+        let newUserTask = newAuthTask.then(function(user){
+            console.log('user', user);
+            return firebase.database().ref('users/' + user.uid).set(newUser);
+        });
+        
+        return Observable.fromPromise(newUserTask);
     }
+    
+    
+    //TODO: ref.child("uUids").child("user3").setValue(true) or invés de uma lista. Sempre um Set
     
     signInWithEmailAndPassword(email, password) {
         let promise = this.afAuth.auth.signInWithEmailAndPassword(email, password);

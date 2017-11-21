@@ -5,8 +5,11 @@ import { FormsModule }   from '@angular/forms';
 
 import { environment } from '../environments/environment';
 
+
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
 
 //Services
 import { AuthenticationService } from './services/authentication.service';
@@ -32,7 +35,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     AngularFireAuthModule,
+    
   ],
   providers: [AuthenticationService, AuthenticationGuard],
   bootstrap: [AppComponent]

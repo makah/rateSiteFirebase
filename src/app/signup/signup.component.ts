@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
       return;
     }
     
-    this.authService.createUserWithEmailAndPassword(formData.value.email,formData.value.password).subscribe(
+    this.authService.createUserWithEmailAndPassword(formData.value.name, formData.value.email,formData.value.password).subscribe(
       (data) => {
         console.log(data);
         this.router.navigate(['/login']);
