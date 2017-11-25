@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Rx";
 
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-
 
 @Injectable()
 export class AuthenticationService {
     
     private authState: any;
     
-    constructor(public afAuth: AngularFireAuth) {
+    constructor(public afAuth: AngularFireAuth, private db: AngularFireDatabase) {
         this.afAuth.authState.subscribe((auth) => {
           this.authState = auth
         });
-        
     }
     
     createUserWithEmailAndPassword(name, email, password) {
@@ -23,16 +21,12 @@ export class AuthenticationService {
         };
         
         let newAuthTask = this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-        let newUserTask = newAuthTask.then(function(user){
-            console.log('user', user);
-            return firebase.database().ref('users/' + user.uid).set(newUser);
+        let newUserTask = newAuthTask.then((user) => {
+            return this.db.object('/users/' + user.uid).set(newUser);
         });
         
         return Observable.fromPromise(newUserTask);
     }
-    
-    
-    //TODO: ref.child("uUids").child("user3").setValue(true) or invés de uma lista. Sempre um Set
     
     signInWithEmailAndPassword(email, password) {
         let promise = this.afAuth.auth.signInWithEmailAndPassword(email, password);
@@ -51,7 +45,7 @@ export class AuthenticationService {
         return this.authenticated ? this.authState : null;
     }
     
-    get id(): string {
+    get userID(): string {
         return this.authenticated ? this.authState.uid : '';
     }
     

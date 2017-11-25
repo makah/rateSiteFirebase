@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
 //Services
+import { StoreService } from './services/store.service';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthenticationGuard } from './services/authentication.guard';
 
@@ -21,6 +22,7 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NewStoreComponent } from './new-store/new-store.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppComponent,
     SignupComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    NewStoreComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AngularFireAuthModule,
     
   ],
-  providers: [AuthenticationService, AuthenticationGuard],
+  providers: [AuthenticationService, AuthenticationGuard, StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
