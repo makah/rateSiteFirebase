@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Rx";
 
 import { AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase';
 
 import { Store } from '../models/store';
 import { Location } from '../models/location';
@@ -28,6 +27,18 @@ export class StoreService {
         
         return this.db.object('/').update(tasks);
     }
+    
+    searchByStore(keywords: string) {
+        return this.db.list('/stores', ref => { 
+            return ref.orderByChild('name').startAt(keywords).endAt(keywords+"\uf8ff");
+        });
+    }
+    
+    searchByLocation(keywords: string) {
+        return;
+    }
+    
+    
     
 }
 

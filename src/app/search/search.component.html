@@ -1,0 +1,11 @@
+<input type="text"  (keydown)="search($event)" placeholder="search store..." class="input">
+<hr>
+<div *ngIf="store?.length < 1">
+  <p>No results...</p>
+</div>
+<div *ngFor="let store of stores">
+  <h4>{{store?.Title}}</h4>
+  <p>{{store?.name}}</p>
+  <p>{{store?.description}}</p>
+  <hr>
+</div>
