@@ -20,6 +20,7 @@ export class StoreService {
         let newLocationKey = newLocation.key;
         storeData.ownerID = ownerID;
         storeData.workingRegionID = newLocationKey;
+        storeData.name = storeData.name.toLowerCase();
         
         let tasks = {};
         tasks["/stores/" + newStoreKey] = storeData;
@@ -30,15 +31,17 @@ export class StoreService {
     
     searchByStore(keywords: string) {
         return this.db.list('/stores', ref => { 
-            return ref.orderByChild('name').startAt(keywords).endAt(keywords+"\uf8ff");
+            return ref.orderByChild('name').startAt(keywords.toLowerCase()).endAt(keywords+"\uf8ff");
         });
     }
-    
+
     searchByLocation(keywords: string) {
         return;
     }
     
-    
+    getStore(id: string) {
+        return this.db.object('/stores/' + id).valueChanges();
+    }
     
 }
 

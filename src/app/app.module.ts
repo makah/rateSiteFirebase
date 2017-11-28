@@ -24,6 +24,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewStoreComponent } from './new-store/new-store.component';
 import { SearchComponent } from './search/search.component';
+import { StoreComponent } from './store/store.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SearchComponent } from './search/search.component';
     LoginComponent,
     DashboardComponent,
     NewStoreComponent,
-    SearchComponent
+    SearchComponent,
+    StoreComponent
   ],
   imports: [
     BrowserModule,
