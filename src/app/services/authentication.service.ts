@@ -8,11 +8,21 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class AuthenticationService {
     
     private authState: any;
+    private user: any;
     
-    constructor(public afAuth: AngularFireAuth, private db: AngularFireDatabase) {
-        this.afAuth.authState.subscribe((auth) => {
-          this.authState = auth
+    constructor(public afAuth: AngularFireAuth, private db: AngularFireDatabase) { }
+    
+    load() {
+        let promise = new Promise((resolve, reject) => {
+            this.afAuth.authState.subscribe((auth) => {
+                this.authState = auth
+                resolve(true);
+            },
+                err => reject(err)
+            );
         });
+        
+        return promise;
     }
     
     createUserWithEmailAndPassword(name, email, password) {
@@ -37,11 +47,26 @@ export class AuthenticationService {
         return this.afAuth.auth.signOut();
     }
     
-    get authenticated(): boolean {
-        return this.authState !== null;
+    retrieveUser(): any {
+        if(this.authenticated === undefined){
+            console.log('You need to authenticate first.');
+            return null;
+        }
+        
+        this.user = this.db.object('/users/'+ this.userID)
+                        .valueChanges()
+                        .publishReplay(1)
+                        .refCount();
+        
+            
+        return this.user;
     }
     
-    get user(): any {
+    get authenticated(): boolean {
+        return (this.authState !== null && this.authState !== undefined);
+    }
+    
+    get userAuth(): any {
         return this.authenticated ? this.authState : null;
     }
     

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule }   from '@angular/forms';
+import { APP_INITIALIZER } from '@angular/core';
 
 import { environment } from '../environments/environment';
 
@@ -26,6 +27,18 @@ import { StoreComponent } from './store/store.component';
 import { ReviewComponent } from './review/review.component';
 import { LogoutComponent } from './logout/logout.component';
 
+//Init Service
+const AuthServiceInitProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: AuthServiceInitFactory,
+  deps: [AuthenticationService],
+  multi: true
+};
+
+export function AuthServiceInitFactory(authService: AuthenticationService) {
+  return () => authService.load();
+}
+
 
 @NgModule({
   declarations: [
@@ -48,7 +61,9 @@ import { LogoutComponent } from './logout/logout.component';
     AngularFireAuthModule,
     
   ],
-  providers: [AuthenticationService, AuthenticationGuard, StoreService],
+  providers: [AuthenticationService, AuthenticationGuard, StoreService, AuthServiceInitProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
