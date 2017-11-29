@@ -1,0 +1,31 @@
+<section id="main-content-inner" class="container">
+	<div class="row" *ngIf="store">
+        <div class="col-sm-4">
+            <!-- <img style="max-width:100%; max-height:100%; max-width: 300px;" src="{{store.imagePath}}"> -->
+        </div>
+        <div class="col-sm-5">
+            <p id="name"><strong>{{store.name}}</strong></p>
+            <p id="phone">{{store.phone}}</p>
+            <p id="description">{{store.description}}</p>
+            
+            <div class="rating-block">
+                <p>{{store.cachedRating}}</p>
+			</div>
+        </div>
+        <div class="col-sm-3">
+            <div *ngIf="store.menu">
+                <a href="/files/menu/<%=menuPath%>" class="btn btn-white btn-default active">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Menu
+                </a>
+            </div>
+            <br/>
+            <a class="btn btn-white btn-default active">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i> Fazer Pedido
+            </a>
+        </div>
+    </div>
+</section>
+
+<div *ngIf="store">
+    <app-review [storeID]="id"></app-review>
+</div>
