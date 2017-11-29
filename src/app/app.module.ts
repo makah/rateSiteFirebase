@@ -24,6 +24,7 @@ import { NewStoreComponent } from './new-store/new-store.component';
 import { SearchComponent } from './search/search.component';
 import { StoreComponent } from './store/store.component';
 import { ReviewComponent } from './review/review.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ReviewComponent } from './review/review.component';
     NewStoreComponent,
     SearchComponent,
     StoreComponent,
-    ReviewComponent
+    ReviewComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
