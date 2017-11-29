@@ -5,11 +5,9 @@ import { FormsModule }   from '@angular/forms';
 
 import { environment } from '../environments/environment';
 
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
 
 //Services
 import { StoreService } from './services/store.service';
@@ -25,6 +23,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewStoreComponent } from './new-store/new-store.component';
 import { SearchComponent } from './search/search.component';
 import { StoreComponent } from './store/store.component';
+import { ReviewComponent } from './review/review.component';
 
 
 @NgModule({
@@ -35,7 +34,8 @@ import { StoreComponent } from './store/store.component';
     DashboardComponent,
     NewStoreComponent,
     SearchComponent,
-    StoreComponent
+    StoreComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,

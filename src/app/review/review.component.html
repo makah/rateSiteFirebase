@@ -1,0 +1,22 @@
+<div style="display:block; float:left">
+    <form #formData='ngForm' (ngSubmit)="saveComment(formData)" style="border:1px solid black; padding: 10px;">
+        <span>Rating:</span>
+        <input type="number" name="rating" min="0" max="4" (ngModel)="rating" required>
+        <br />
+        <br />
+        <span>Comment:</span>
+        <textarea rows="5" cols="50" placeholder="Add a comment" [(ngModel)]="comment" [ngModelOptions]="{standalone: true}" required></textarea>
+        
+        <button type="submit" [disabled]="!formData.valid" class="basic-btn">Create a comment</button>
+    </form>
+</div>
+
+<div style="display:block; float:left">
+    <ul>
+        <li *ngFor="let review of reviews"> 
+            Rating: {{ review.rating }}
+            <br />
+            Comment: {{ review.comment }}
+        </li>
+    </ul>
+</div>

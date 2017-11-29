@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Store } from '../models/store';
 import { Location } from '../models/location';
+import { Review } from '../models/review';
 
 @Injectable()
 export class StoreService {
@@ -41,6 +42,17 @@ export class StoreService {
     
     getStore(id: string) {
         return this.db.object('/stores/' + id).valueChanges();
+    }
+    
+    addReview(review: Review){
+        let promise = this.db.list('/reviews').push(review);
+        return Observable.fromPromise(promise);
+    }
+    
+    getReviews(storeID: string){
+        return this.db.list('/reviews', ref => { 
+            return ref.orderByChild('storeID').equalTo(storeID);
+        });
     }
     
 }
