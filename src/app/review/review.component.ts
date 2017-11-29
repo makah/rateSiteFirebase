@@ -15,6 +15,7 @@ export class ReviewComponent implements OnInit {
   private _storeID : string;
   newReviewErrMsg: string;
   comment: string;
+  user: any;
   
   reviews: Review[];
   private reviewObservable;
@@ -23,8 +24,11 @@ export class ReviewComponent implements OnInit {
 
   ngOnInit() {
     this.loadComments(this.storeID);
+    this.authService.retrieveUser().subscribe(user => {
+      this.user = user;  
+    });
   }
-  
+
   ngOnDestroy() {
     this.reviewObservable.unsubscribe();
   }
@@ -44,10 +48,13 @@ export class ReviewComponent implements OnInit {
       console.log('Nao ta valido');
       return;
     }
+    
     let userID = this.authService.userID;
+    let userName = this.user ? this.user.name : '---';
     
     let review: Review = {
-      onwerID: userID,
+      ownerID: userID,
+      ownerName: userName,
       storeID: this.storeID,
       
       rating: formData.value.rating,
@@ -55,28 +62,23 @@ export class ReviewComponent implements OnInit {
     }
     
     this.storeService.addReview(review).subscribe(
-      (data) => {
-        console.log('info', data);
-      },
+      (data) => { },
       (error) => {
         console.log('error', this.newReviewErrMsg);
       }
     );
-    
   }
   
   loadComments(storeID: string) {
     this.reviewObservable = this.storeService.getReviews(storeID).valueChanges();
     this.reviewObservable.subscribe(
       (reviews) => {
-        console.log('info', reviews);
         this.reviews = reviews as Review[];
       },
       (error) => {
         console.log('error', this.newReviewErrMsg);
       }
     );
-    
   }
   
 

@@ -16,7 +16,6 @@ export class AuthenticationGuard implements CanActivate {
       .take(1)
       .map(authState => !!authState)
       .do(authenticated => {
-        console.log(this.auth.afAuth.authState);
         if (!authenticated) {
             let errValue = 101;
             this.router.navigate(['/login', errValue]);

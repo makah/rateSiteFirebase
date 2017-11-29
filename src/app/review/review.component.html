@@ -14,6 +14,8 @@
 <div style="display:block; float:left">
     <ul>
         <li *ngFor="let review of reviews"> 
+            <b>Name: {{ review.ownerName }}</b>
+            <br />
             Rating: {{ review.rating }}
             <br />
             Comment: {{ review.comment }}
