@@ -45,8 +45,14 @@ export class StoreService {
     }
     
     addReview(review: Review){
-        let promise = this.db.list('/reviews').push(review);
-        return Observable.fromPromise(promise);
+        let newReviewID = this.db.list('/stores').push(undefined).key;
+        let userID = review.ownerID;
+        
+        let tasks = {};
+        tasks[`/reviews/${newReviewID}`] = review;
+        tasks[`/users/${userID}/reviews/${newReviewID}`] = true;
+        
+        return Observable.fromPromise(this.db.object('/').update(tasks));
     }
     
     getReviews(storeID: string){
