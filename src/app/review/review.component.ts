@@ -18,7 +18,7 @@ export class ReviewComponent implements OnInit {
   user: any;
   
   reviews: Review[];
-  private reviewObservable;
+  private subscribeReview;
 
   constructor(private authService :AuthenticationService, private storeService :StoreService) { }
 
@@ -30,7 +30,7 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.reviewObservable.unsubscribe();
+    this.subscribeReview.unsubscribe();
   }
   
   @Input()
@@ -70,8 +70,8 @@ export class ReviewComponent implements OnInit {
   }
   
   loadComments(storeID: string) {
-    this.reviewObservable = this.storeService.getReviews(storeID).valueChanges();
-    this.reviewObservable.subscribe(
+    let reviewObservable = this.storeService.getReviews(storeID).valueChanges();
+    this.subscribeReview = reviewObservable.subscribe(
       (reviews) => {
         this.reviews = reviews as Review[];
       },
