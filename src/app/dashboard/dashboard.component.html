@@ -6,3 +6,10 @@
 
 
 <button (click)="logout()">Logout</button>
+<br />
+<br />
+
+<div>
+    <input type="text" name="name" placeholder="My new Name" [(ngModel)]="newName">
+    <button (click)="changeName()">Change Name</button>
+</div>

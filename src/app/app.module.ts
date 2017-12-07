@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule }   from '@angular/forms';
 import { APP_INITIALIZER } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
 
@@ -59,7 +60,7 @@ export function AuthServiceInitFactory(authService: AuthenticationService) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    
+    HttpClientModule,
   ],
   providers: [AuthenticationService, AuthenticationGuard, StoreService, AuthServiceInitProvider],
   bootstrap: [AppComponent]
