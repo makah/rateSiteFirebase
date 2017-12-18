@@ -1,7 +1,7 @@
 <section id="main-content-inner" class="container">
 	<div class="row" *ngIf="store">
         <div class="col-sm-4">
-            <!-- <img style="max-width:100%; max-height:100%; max-width: 300px;" src="{{store.imagePath}}"> -->
+            <img style="max-width:100%; max-height:100%; max-width: 300px;" [src]="logoURL">
         </div>
         <div class="col-sm-5">
             <p id="name"><strong>{{store.name}}</strong></p>
@@ -13,10 +13,8 @@
 			</div>
         </div>
         <div class="col-sm-3">
-            <div *ngIf="store.menu">
-                <a href="/files/menu/<%=menuPath%>" class="btn btn-white btn-default active">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Menu
-                </a>
+            <div *ngIf="hasMenu">
+                <button type="submit" (click)="downloadMenu()" class="basic-btn">Menu</button>
             </div>
             <br/>
             <a class="btn btn-white btn-default active">

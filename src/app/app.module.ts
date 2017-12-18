@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 //Services
 import { StoreService } from './services/store.service';
 import { AuthenticationService } from './services/authentication.service';
+import { ImageService } from './services/image.service';
 import { AuthenticationGuard } from './services/authentication.guard';
 
 //Components

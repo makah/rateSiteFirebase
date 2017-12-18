@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 
 import { Store } from '../models/store';
 import { Location } from '../models/location';
+import { UploadFile } from '../models/upload-file';
 
 import { StoreService } from '../services/store.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { ImageService } from '../services/image.service';
 
 @Component({
   selector: 'app-new-store',

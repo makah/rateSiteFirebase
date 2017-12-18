@@ -1,3 +1,6 @@
+
+import { UploadFile } from '../models/upload-file';
+
 export interface Store {
     
     //From Users' table
@@ -14,7 +17,7 @@ export interface Store {
     cachedRating: number;
     cachedCount: number;
     
-    logoFile?: string;
-    menuFile?: string;
-    photosFile?: string;
+    logo?: UploadFile;
+    menu?: UploadFile;
+    photos?: UploadFile[];
 }
