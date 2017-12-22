@@ -16,6 +16,7 @@ export class ReviewComponent implements OnInit {
   newReviewErrMsg: string;
   comment: string;
   user: any;
+  lastReviewKey: string;
   
   reviews: Review[];
   private subscribeReview;
@@ -59,23 +60,37 @@ export class ReviewComponent implements OnInit {
       
       rating: formData.value.rating,
       comment: this.comment,
-    }
+    };
     
     this.storeService.addReview(review).subscribe(
       (data) => { },
       (error) => {
+        this.newReviewErrMsg = error;
         console.log('error', this.newReviewErrMsg);
       }
-    );
+    ); 
   }
   
   loadComments(storeID: string) {
-    let reviewObservable = this.storeService.getReviews(storeID).valueChanges();
+    let reviewObservable = this.storeService.getReviews(storeID, this.lastReviewKey).snapshotChanges();
+    
     this.subscribeReview = reviewObservable.subscribe(
-      (reviews) => {
-        this.reviews = reviews as Review[];
+      (reviewSnapshot) => {
+        
+        let reviews :Review[] = [];
+        reviewSnapshot.sort((a,b) => a.key <= b.key ? 1 : -1).forEach(snapshot => {
+          let review = snapshot.payload.val();
+          review.key = snapshot.key;
+          
+          reviews.push(review);
+        });
+        
+        this.reviews = reviews;
+        this.lastReviewKey = reviews[reviews.length -1].key;
+        this.reviews.pop();
       },
       (error) => {
+        this.newReviewErrMsg = error;
         console.log('error', this.newReviewErrMsg);
       }
     );

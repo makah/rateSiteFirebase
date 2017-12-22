@@ -10,8 +10,6 @@ import { Review } from '../models/review';
 @Injectable()
 export class StoreService {
 
-    private authState: any;
-
     constructor(private db: AngularFireDatabase) { }
     
     createStore(ownerID: string, storeData: Store, locationData: Location) {
@@ -45,7 +43,7 @@ export class StoreService {
     }
     
     addReview(review: Review){
-        let newReviewID = this.db.list('/stores').push(undefined).key;
+        let newReviewID = this.db.list('/reviews').push(undefined).key;
         let userID = review.ownerID;
         
         let tasks = {};
@@ -55,9 +53,12 @@ export class StoreService {
         return Observable.fromPromise(this.db.object('/').update(tasks));
     }
     
-    getReviews(storeID: string){
+    getReviews(storeID: string, lastKeyOnPreviousPage: string){
         return this.db.list('/reviews', ref => { 
-            return ref.orderByChild('storeID').equalTo(storeID);
+            return ref.orderByChild('storeID')
+                .startAt(storeID)
+                .endAt(storeID, lastKeyOnPreviousPage)
+                .limitToLast(4)
         });
     }
     
