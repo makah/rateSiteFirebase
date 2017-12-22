@@ -44,7 +44,11 @@ export class AuthenticationService {
     }
     
     logout() {
-        return this.afAuth.auth.signOut();
+        return this.afAuth.auth.signOut().then(function() {
+          console.log('signOut: OK');
+        }).catch(function(error) {
+          console.log('signOut FAIL: ', error);
+        });
     }
     
     retrieveUser(): any {
